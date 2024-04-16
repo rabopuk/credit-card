@@ -684,12 +684,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
         minView: "months",
         minDate: new Date(),
         startDate: new Date(),
-        dateFormat: (date)=>{
-            let month = date.getMonth() + 1;
-            const year = date.getFullYear().toString().slice(2);
-            if (month < 10) month = "0" + month;
-            return `${month}/${year}`;
-        },
+        dateFormat: "MM/yy",
+        multipleDatesSeparator: "/",
         onSelect: ({ formattedDate, datepicker })=>{
             inputDate.value = formattedDate;
             cardDate.textContent = formattedDate;
