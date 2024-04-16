@@ -584,12 +584,21 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"bB7Pu":[function(require,module,exports) {
-/* eslint-disable object-curly-spacing */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _airDatepicker = require("air-datepicker");
-var _airDatepickerDefault = parcelHelpers.interopDefault(_airDatepicker);
-var _airDatepickerCss = require("air-datepicker/air-datepicker.css");
-var _redom = require("redom");
+var _createElements = require("./modules/createElements");
+var _datepicker = require("./modules/datepicker");
+var _listeners = require("./modules/listeners");
 document.addEventListener("DOMContentLoaded", ()=>{
+    const elements = (0, _createElements.createElements)();
+    (0, _listeners.addListeners)(elements);
+    (0, _datepicker.initDatepicker)(elements.inputDate, elements.cardDate);
+});
+
+},{"./modules/createElements":"lTxtA","./modules/datepicker":"3bIhW","./modules/listeners":"Asb2S"}],"lTxtA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createElements", ()=>createElements);
+var _redom = require("redom");
+const createElements = ()=>{
     const wrapper = (0, _redom.el)(".wrapper");
     const card = (0, _redom.el)(".card");
     const secure = (0, _redom.el)("p.secure", "Secure Checkout");
@@ -627,7 +636,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
         placeholder: "XXX"
     });
     const formButton = (0, _redom.el)("button.form__button", "CHECK OUT");
-    (0, _redom.setChildren)(wrapper, card);
+    (0, _redom.setChildren)(wrapper, [
+        card
+    ]);
     (0, _redom.setChildren)(card, [
         secure,
         creditCard,
@@ -665,20 +676,439 @@ document.addEventListener("DOMContentLoaded", ()=>{
         inputCvv
     ]);
     document.body.append(wrapper);
-    inputHolder.addEventListener("input", ()=>{
-        if (/[^a-zA-Z\s]/.test(inputHolder.value)) alert("Please use Latin characters only");
-        inputHolder.value = inputHolder.value.replace(/[^a-zA-Z\s]|(.*\s.*)\s.*/g, "$1");
-        const formattedValue = inputHolder.value.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, (letter)=>letter.toUpperCase());
-        cardName.textContent = formattedValue;
+    return {
+        wrapper,
+        card,
+        secure,
+        creditCard,
+        cardNumber,
+        cardPersonal,
+        cardName,
+        cardDate,
+        form,
+        inputWrapHolder,
+        holderLabel,
+        inputHolder,
+        inputWrapNumber,
+        numberLabel,
+        inputNumber,
+        inputWrapDate,
+        dateLabel,
+        inputDate,
+        inputWrapCvv,
+        cvvLabel,
+        inputCvv,
+        formButton
+    };
+};
+
+},{"redom":"gT5MM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gT5MM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "el", ()=>(0, _htmlJs.el));
+parcelHelpers.export(exports, "h", ()=>(0, _htmlJs.h));
+parcelHelpers.export(exports, "html", ()=>(0, _htmlJs.html));
+parcelHelpers.export(exports, "list", ()=>(0, _listJs.list));
+parcelHelpers.export(exports, "List", ()=>(0, _listJs.List));
+parcelHelpers.export(exports, "listPool", ()=>(0, _listpoolJs.listPool));
+parcelHelpers.export(exports, "ListPool", ()=>(0, _listpoolJs.ListPool));
+parcelHelpers.export(exports, "mount", ()=>(0, _mountJs.mount));
+parcelHelpers.export(exports, "unmount", ()=>(0, _unmountJs.unmount));
+parcelHelpers.export(exports, "place", ()=>(0, _placeJs.place));
+parcelHelpers.export(exports, "Place", ()=>(0, _placeJs.Place));
+parcelHelpers.export(exports, "router", ()=>(0, _routerJs.router));
+parcelHelpers.export(exports, "Router", ()=>(0, _routerJs.Router));
+parcelHelpers.export(exports, "setAttr", ()=>(0, _setattrJs.setAttr));
+parcelHelpers.export(exports, "setXlink", ()=>(0, _setattrJs.setXlink));
+parcelHelpers.export(exports, "setData", ()=>(0, _setattrJs.setData));
+parcelHelpers.export(exports, "setStyle", ()=>(0, _setstyleJs.setStyle));
+parcelHelpers.export(exports, "setChildren", ()=>(0, _setchildrenJs.setChildren));
+parcelHelpers.export(exports, "s", ()=>(0, _svgJs.s));
+parcelHelpers.export(exports, "svg", ()=>(0, _svgJs.svg));
+parcelHelpers.export(exports, "text", ()=>(0, _textJs.text));
+parcelHelpers.export(exports, "viewFactory", ()=>(0, _viewFactoryJs.viewFactory));
+var _htmlJs = require("./html.js");
+var _listJs = require("./list.js");
+var _listpoolJs = require("./listpool.js");
+var _mountJs = require("./mount.js");
+var _unmountJs = require("./unmount.js");
+var _placeJs = require("./place.js");
+var _routerJs = require("./router.js");
+var _setattrJs = require("./setattr.js");
+var _setstyleJs = require("./setstyle.js");
+var _setchildrenJs = require("./setchildren.js");
+var _svgJs = require("./svg.js");
+var _textJs = require("./text.js");
+var _viewFactoryJs = require("./view-factory.js");
+
+},{"./html.js":"hjTCY","./list.js":false,"./listpool.js":false,"./mount.js":false,"./unmount.js":false,"./place.js":false,"./router.js":false,"./setattr.js":false,"./setstyle.js":false,"./setchildren.js":"hM3Vg","./svg.js":false,"./text.js":false,"./view-factory.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hjTCY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "html", ()=>html);
+parcelHelpers.export(exports, "el", ()=>el);
+parcelHelpers.export(exports, "h", ()=>h);
+var _createElementJs = require("./create-element.js");
+var _utilJs = require("./util.js");
+function html(query, ...args) {
+    let element;
+    const type = typeof query;
+    if (type === "string") element = (0, _createElementJs.createElement)(query);
+    else if (type === "function") {
+        const Query = query;
+        element = new Query(...args);
+    } else throw new Error("At least one argument required");
+    (0, _utilJs.parseArgumentsInternal)((0, _utilJs.getEl)(element), args, true);
+    return element;
+}
+const el = html;
+const h = html;
+html.extend = function extendHtml(...args) {
+    return html.bind(this, ...args);
+};
+
+},{"./create-element.js":"7ApSd","./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ApSd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createElement", ()=>createElement);
+function createElement(query, ns) {
+    const { tag, id, className } = parse(query);
+    const element = ns ? document.createElementNS(ns, tag) : document.createElement(tag);
+    if (id) element.id = id;
+    if (className) {
+        if (ns) element.setAttribute("class", className);
+        else element.className = className;
+    }
+    return element;
+}
+function parse(query) {
+    const chunks = query.split(/([.#])/);
+    let className = "";
+    let id = "";
+    for(let i = 1; i < chunks.length; i += 2)switch(chunks[i]){
+        case ".":
+            className += ` ${chunks[i + 1]}`;
+            break;
+        case "#":
+            id = chunks[i + 1];
+    }
+    return {
+        className: className.trim(),
+        tag: chunks[0] || "div",
+        id
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
     });
-    inputNumber.addEventListener("input", ()=>{
-        if (/[^\d\s]/.test(inputNumber.value.replace(/ /g, ""))) alert("Please enter numbers only");
-        inputNumber.value = inputNumber.value.replace(/\D/g, "");
-        if (inputNumber.value.length > 16) inputNumber.value = inputNumber.value.slice(0, 16);
-        const formattedValue = inputNumber.value.replace(/(\d{4})/g, "$1 ").trim();
-        inputNumber.value = formattedValue;
-        cardNumber.textContent = formattedValue;
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
     });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"84GoL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "parseArguments", ()=>parseArguments);
+parcelHelpers.export(exports, "parseArgumentsInternal", ()=>parseArgumentsInternal);
+parcelHelpers.export(exports, "ensureEl", ()=>ensureEl);
+parcelHelpers.export(exports, "getEl", ()=>getEl);
+parcelHelpers.export(exports, "isNode", ()=>isNode);
+var _htmlJs = require("./html.js");
+var _mountJs = require("./mount.js");
+var _setattrJs = require("./setattr.js");
+var _textJs = require("./text.js");
+function parseArguments(element, args) {
+    parseArgumentsInternal(element, args);
+}
+function parseArgumentsInternal(element, args, initial) {
+    for (const arg of args){
+        if (arg !== 0 && !arg) continue;
+        const type = typeof arg;
+        if (type === "function") arg(element);
+        else if (type === "string" || type === "number") element.appendChild((0, _textJs.text)(arg));
+        else if (isNode(getEl(arg))) (0, _mountJs.mount)(element, arg);
+        else if (arg.length) parseArgumentsInternal(element, arg, initial);
+        else if (type === "object") (0, _setattrJs.setAttrInternal)(element, arg, null, initial);
+    }
+}
+function ensureEl(parent) {
+    return typeof parent === "string" ? (0, _htmlJs.html)(parent) : getEl(parent);
+}
+function getEl(parent) {
+    return parent.nodeType && parent || !parent.el && parent || getEl(parent.el);
+}
+function isNode(arg) {
+    return arg && arg.nodeType;
+}
+
+},{"./html.js":"hjTCY","./mount.js":"5qTJ0","./setattr.js":"ljeoO","./text.js":"9AiUK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5qTJ0":[function(require,module,exports) {
+/* global Node, ShadowRoot */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "mount", ()=>mount);
+parcelHelpers.export(exports, "trigger", ()=>trigger);
+var _utilJs = require("./util.js");
+var _unmountJs = require("./unmount.js");
+const hookNames = [
+    "onmount",
+    "onremount",
+    "onunmount"
+];
+const shadowRootAvailable = typeof window !== "undefined" && "ShadowRoot" in window;
+function mount(parent, child, before, replace) {
+    const parentEl = (0, _utilJs.getEl)(parent);
+    const childEl = (0, _utilJs.getEl)(child);
+    if (child === childEl && childEl.__redom_view) // try to look up the view if not provided
+    child = childEl.__redom_view;
+    if (child !== childEl) childEl.__redom_view = child;
+    const wasMounted = childEl.__redom_mounted;
+    const oldParent = childEl.parentNode;
+    if (wasMounted && oldParent !== parentEl) (0, _unmountJs.doUnmount)(child, childEl, oldParent);
+    if (before != null) {
+        if (replace) {
+            const beforeEl = (0, _utilJs.getEl)(before);
+            if (beforeEl.__redom_mounted) trigger(beforeEl, "onunmount");
+            parentEl.replaceChild(childEl, beforeEl);
+        } else parentEl.insertBefore(childEl, (0, _utilJs.getEl)(before));
+    } else parentEl.appendChild(childEl);
+    doMount(child, childEl, parentEl, oldParent);
+    return child;
+}
+function trigger(el, eventName) {
+    if (eventName === "onmount" || eventName === "onremount") el.__redom_mounted = true;
+    else if (eventName === "onunmount") el.__redom_mounted = false;
+    const hooks = el.__redom_lifecycle;
+    if (!hooks) return;
+    const view = el.__redom_view;
+    let hookCount = 0;
+    view && view[eventName] && view[eventName]();
+    for(const hook in hooks)if (hook) hookCount++;
+    if (hookCount) {
+        let traverse = el.firstChild;
+        while(traverse){
+            const next = traverse.nextSibling;
+            trigger(traverse, eventName);
+            traverse = next;
+        }
+    }
+}
+function doMount(child, childEl, parentEl, oldParent) {
+    const hooks = childEl.__redom_lifecycle || (childEl.__redom_lifecycle = {});
+    const remount = parentEl === oldParent;
+    let hooksFound = false;
+    for (const hookName of hookNames){
+        if (!remount) {
+            if (child !== childEl) {
+                if (hookName in child) hooks[hookName] = (hooks[hookName] || 0) + 1;
+            }
+        }
+        if (hooks[hookName]) hooksFound = true;
+    }
+    if (!hooksFound) {
+        childEl.__redom_lifecycle = {};
+        return;
+    }
+    let traverse = parentEl;
+    let triggered = false;
+    if (remount || traverse && traverse.__redom_mounted) {
+        trigger(childEl, remount ? "onremount" : "onmount");
+        triggered = true;
+    }
+    while(traverse){
+        const parent = traverse.parentNode;
+        const parentHooks = traverse.__redom_lifecycle || (traverse.__redom_lifecycle = {});
+        for(const hook in hooks)parentHooks[hook] = (parentHooks[hook] || 0) + hooks[hook];
+        if (triggered) break;
+        else {
+            if (traverse.nodeType === Node.DOCUMENT_NODE || shadowRootAvailable && traverse instanceof ShadowRoot || parent && parent.__redom_mounted) {
+                trigger(traverse, remount ? "onremount" : "onmount");
+                triggered = true;
+            }
+            traverse = parent;
+        }
+    }
+}
+
+},{"./util.js":"84GoL","./unmount.js":"irGDu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"irGDu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "unmount", ()=>unmount);
+parcelHelpers.export(exports, "doUnmount", ()=>doUnmount);
+var _utilJs = require("./util.js");
+var _mountJs = require("./mount.js");
+function unmount(parent, child) {
+    const parentEl = (0, _utilJs.getEl)(parent);
+    const childEl = (0, _utilJs.getEl)(child);
+    if (child === childEl && childEl.__redom_view) // try to look up the view if not provided
+    child = childEl.__redom_view;
+    if (childEl.parentNode) {
+        doUnmount(child, childEl, parentEl);
+        parentEl.removeChild(childEl);
+    }
+    return child;
+}
+function doUnmount(child, childEl, parentEl) {
+    const hooks = childEl.__redom_lifecycle;
+    if (hooksAreEmpty(hooks)) {
+        childEl.__redom_lifecycle = {};
+        return;
+    }
+    let traverse = parentEl;
+    if (childEl.__redom_mounted) (0, _mountJs.trigger)(childEl, "onunmount");
+    while(traverse){
+        const parentHooks = traverse.__redom_lifecycle || {};
+        for(const hook in hooks)if (parentHooks[hook]) parentHooks[hook] -= hooks[hook];
+        if (hooksAreEmpty(parentHooks)) traverse.__redom_lifecycle = null;
+        traverse = traverse.parentNode;
+    }
+}
+function hooksAreEmpty(hooks) {
+    if (hooks == null) return true;
+    for(const key in hooks){
+        if (hooks[key]) return false;
+    }
+    return true;
+}
+
+},{"./util.js":"84GoL","./mount.js":"5qTJ0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ljeoO":[function(require,module,exports) {
+/* global SVGElement */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setAttr", ()=>setAttr);
+parcelHelpers.export(exports, "setAttrInternal", ()=>setAttrInternal);
+parcelHelpers.export(exports, "setXlink", ()=>setXlink);
+parcelHelpers.export(exports, "setData", ()=>setData);
+var _setstyleJs = require("./setstyle.js");
+var _utilJs = require("./util.js");
+const xlinkns = "http://www.w3.org/1999/xlink";
+function setAttr(view, arg1, arg2) {
+    setAttrInternal(view, arg1, arg2);
+}
+function setAttrInternal(view, arg1, arg2, initial) {
+    const el = (0, _utilJs.getEl)(view);
+    const isObj = typeof arg1 === "object";
+    if (isObj) for(const key in arg1)setAttrInternal(el, key, arg1[key], initial);
+    else {
+        const isSVG = el instanceof SVGElement;
+        const isFunc = typeof arg2 === "function";
+        if (arg1 === "style" && typeof arg2 === "object") (0, _setstyleJs.setStyle)(el, arg2);
+        else if (isSVG && isFunc) el[arg1] = arg2;
+        else if (arg1 === "dataset") setData(el, arg2);
+        else if (!isSVG && (arg1 in el || isFunc) && arg1 !== "list") el[arg1] = arg2;
+        else {
+            if (isSVG && arg1 === "xlink") {
+                setXlink(el, arg2);
+                return;
+            }
+            if (initial && arg1 === "class") arg2 = el.className + " " + arg2;
+            if (arg2 == null) el.removeAttribute(arg1);
+            else el.setAttribute(arg1, arg2);
+        }
+    }
+}
+function setXlink(el, arg1, arg2) {
+    if (typeof arg1 === "object") for(const key in arg1)setXlink(el, key, arg1[key]);
+    else if (arg2 != null) el.setAttributeNS(xlinkns, arg1, arg2);
+    else el.removeAttributeNS(xlinkns, arg1, arg2);
+}
+function setData(el, arg1, arg2) {
+    if (typeof arg1 === "object") for(const key in arg1)setData(el, key, arg1[key]);
+    else if (arg2 != null) el.dataset[arg1] = arg2;
+    else delete el.dataset[arg1];
+}
+
+},{"./setstyle.js":"5PSeC","./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5PSeC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setStyle", ()=>setStyle);
+var _utilJs = require("./util.js");
+function setStyle(view, arg1, arg2) {
+    const el = (0, _utilJs.getEl)(view);
+    if (typeof arg1 === "object") for(const key in arg1)setStyleValue(el, key, arg1[key]);
+    else setStyleValue(el, arg1, arg2);
+}
+function setStyleValue(el, key, value) {
+    el.style[key] = value == null ? "" : value;
+}
+
+},{"./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9AiUK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "text", ()=>text);
+function text(str) {
+    return document.createTextNode(str != null ? str : "");
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hM3Vg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setChildren", ()=>setChildren);
+var _mountJs = require("./mount.js");
+var _unmountJs = require("./unmount.js");
+var _utilJs = require("./util.js");
+function setChildren(parent, ...children) {
+    const parentEl = (0, _utilJs.getEl)(parent);
+    let current = traverse(parent, children, parentEl.firstChild);
+    while(current){
+        const next = current.nextSibling;
+        (0, _unmountJs.unmount)(parent, current);
+        current = next;
+    }
+}
+function traverse(parent, children, _current) {
+    let current = _current;
+    const childEls = Array(children.length);
+    for(let i = 0; i < children.length; i++)childEls[i] = children[i] && (0, _utilJs.getEl)(children[i]);
+    for(let i = 0; i < children.length; i++){
+        const child = children[i];
+        if (!child) continue;
+        const childEl = childEls[i];
+        if (childEl === current) {
+            current = current.nextSibling;
+            continue;
+        }
+        if ((0, _utilJs.isNode)(childEl)) {
+            const next = current && current.nextSibling;
+            const exists = child.__redom_index != null;
+            const replace = exists && next === childEls[i + 1];
+            (0, _mountJs.mount)(parent, child, current, replace);
+            if (replace) current = next;
+            continue;
+        }
+        if (child.length != null) current = traverse(parent, child, current);
+    }
+    return current;
+}
+
+},{"./mount.js":"5qTJ0","./unmount.js":"irGDu","./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3bIhW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initDatepicker", ()=>initDatepicker);
+var _airDatepicker = require("air-datepicker");
+var _airDatepickerDefault = parcelHelpers.interopDefault(_airDatepicker);
+var _airDatepickerCss = require("air-datepicker/air-datepicker.css");
+const initDatepicker = (inputDate, cardDate)=>{
     new (0, _airDatepickerDefault.default)(inputDate, {
         view: "months",
         minView: "months",
@@ -692,14 +1122,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
             datepicker.hide();
         }
     });
-    inputCvv.addEventListener("input", ()=>{
-        if (/\D/.test(inputCvv.value)) alert("Please enter numbers only");
-        inputCvv.value = inputCvv.value.replace(/\D/g, "");
-        if (inputCvv.value.length > 3) inputCvv.value = inputCvv.value.slice(0, 3);
-    });
-});
+};
 
-},{"air-datepicker":"grWkP","redom":"gT5MM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","air-datepicker/air-datepicker.css":"aM9jX"}],"grWkP":[function(require,module,exports) {
+},{"air-datepicker":"grWkP","air-datepicker/air-datepicker.css":"aM9jX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"grWkP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _airDatepicker = require("./air-datepicker");
@@ -2367,405 +2792,58 @@ exports.default = (0, _airDatepickerDefault.default);
     }();
 });
 
-},{}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
+},{}],"aM9jX":[function() {},{}],"Asb2S":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addListeners", ()=>addListeners);
+var _handlers = require("./handlers");
+const addListeners = (elements)=>{
+    elements.inputHolder.addEventListener("input", (0, _handlers.onHolderInput)(elements.cardName));
+    elements.inputNumber.addEventListener("input", (0, _handlers.onNumberInput)(elements.cardNumber));
+    elements.inputCvv.addEventListener("input", (0, _handlers.onCvvInput));
+};
+
+},{"./handlers":"65dUv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"65dUv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "onHolderInput", ()=>onHolderInput);
+parcelHelpers.export(exports, "onNumberInput", ()=>onNumberInput);
+parcelHelpers.export(exports, "onCvvInput", ()=>onCvvInput);
+var _validation = require("./validation");
+const onHolderInput = (cardName)=>({ target })=>{
+        const input = target;
+        input.value = (0, _validation.validateLatinCharacters)(input);
+        const formattedValue = input.value.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, (letter)=>letter.toUpperCase());
+        cardName.textContent = formattedValue;
     };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"gT5MM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "el", ()=>(0, _htmlJs.el));
-parcelHelpers.export(exports, "h", ()=>(0, _htmlJs.h));
-parcelHelpers.export(exports, "html", ()=>(0, _htmlJs.html));
-parcelHelpers.export(exports, "list", ()=>(0, _listJs.list));
-parcelHelpers.export(exports, "List", ()=>(0, _listJs.List));
-parcelHelpers.export(exports, "listPool", ()=>(0, _listpoolJs.listPool));
-parcelHelpers.export(exports, "ListPool", ()=>(0, _listpoolJs.ListPool));
-parcelHelpers.export(exports, "mount", ()=>(0, _mountJs.mount));
-parcelHelpers.export(exports, "unmount", ()=>(0, _unmountJs.unmount));
-parcelHelpers.export(exports, "place", ()=>(0, _placeJs.place));
-parcelHelpers.export(exports, "Place", ()=>(0, _placeJs.Place));
-parcelHelpers.export(exports, "router", ()=>(0, _routerJs.router));
-parcelHelpers.export(exports, "Router", ()=>(0, _routerJs.Router));
-parcelHelpers.export(exports, "setAttr", ()=>(0, _setattrJs.setAttr));
-parcelHelpers.export(exports, "setXlink", ()=>(0, _setattrJs.setXlink));
-parcelHelpers.export(exports, "setData", ()=>(0, _setattrJs.setData));
-parcelHelpers.export(exports, "setStyle", ()=>(0, _setstyleJs.setStyle));
-parcelHelpers.export(exports, "setChildren", ()=>(0, _setchildrenJs.setChildren));
-parcelHelpers.export(exports, "s", ()=>(0, _svgJs.s));
-parcelHelpers.export(exports, "svg", ()=>(0, _svgJs.svg));
-parcelHelpers.export(exports, "text", ()=>(0, _textJs.text));
-parcelHelpers.export(exports, "viewFactory", ()=>(0, _viewFactoryJs.viewFactory));
-var _htmlJs = require("./html.js");
-var _listJs = require("./list.js");
-var _listpoolJs = require("./listpool.js");
-var _mountJs = require("./mount.js");
-var _unmountJs = require("./unmount.js");
-var _placeJs = require("./place.js");
-var _routerJs = require("./router.js");
-var _setattrJs = require("./setattr.js");
-var _setstyleJs = require("./setstyle.js");
-var _setchildrenJs = require("./setchildren.js");
-var _svgJs = require("./svg.js");
-var _textJs = require("./text.js");
-var _viewFactoryJs = require("./view-factory.js");
-
-},{"./html.js":"hjTCY","./list.js":false,"./listpool.js":false,"./mount.js":false,"./unmount.js":false,"./place.js":false,"./router.js":false,"./setattr.js":false,"./setstyle.js":false,"./setchildren.js":"hM3Vg","./svg.js":false,"./text.js":false,"./view-factory.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hjTCY":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "html", ()=>html);
-parcelHelpers.export(exports, "el", ()=>el);
-parcelHelpers.export(exports, "h", ()=>h);
-var _createElementJs = require("./create-element.js");
-var _utilJs = require("./util.js");
-function html(query, ...args) {
-    let element;
-    const type = typeof query;
-    if (type === "string") element = (0, _createElementJs.createElement)(query);
-    else if (type === "function") {
-        const Query = query;
-        element = new Query(...args);
-    } else throw new Error("At least one argument required");
-    (0, _utilJs.parseArgumentsInternal)((0, _utilJs.getEl)(element), args, true);
-    return element;
-}
-const el = html;
-const h = html;
-html.extend = function extendHtml(...args) {
-    return html.bind(this, ...args);
-};
-
-},{"./create-element.js":"7ApSd","./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ApSd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createElement", ()=>createElement);
-function createElement(query, ns) {
-    const { tag, id, className } = parse(query);
-    const element = ns ? document.createElementNS(ns, tag) : document.createElement(tag);
-    if (id) element.id = id;
-    if (className) {
-        if (ns) element.setAttribute("class", className);
-        else element.className = className;
-    }
-    return element;
-}
-function parse(query) {
-    const chunks = query.split(/([.#])/);
-    let className = "";
-    let id = "";
-    for(let i = 1; i < chunks.length; i += 2)switch(chunks[i]){
-        case ".":
-            className += ` ${chunks[i + 1]}`;
-            break;
-        case "#":
-            id = chunks[i + 1];
-    }
-    return {
-        className: className.trim(),
-        tag: chunks[0] || "div",
-        id
+const onNumberInput = (cardNumber)=>({ target })=>{
+        const input = target;
+        input.value = (0, _validation.validateNumbers)(input);
+        if (input.value.length > 16) input.value = input.value.slice(0, 16);
+        const formattedValue = input.value.replace(/(\d{4})/g, "$1 ").trim();
+        input.value = formattedValue;
+        cardNumber.textContent = formattedValue;
     };
-}
+const onCvvInput = ({ target })=>{
+    const input = target;
+    input.value = (0, _validation.validateNumbers)(input);
+    if (input.value.length > 3) input.value = input.value.slice(0, 3);
+};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"84GoL":[function(require,module,exports) {
+},{"./validation":"bSIK4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bSIK4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "parseArguments", ()=>parseArguments);
-parcelHelpers.export(exports, "parseArgumentsInternal", ()=>parseArgumentsInternal);
-parcelHelpers.export(exports, "ensureEl", ()=>ensureEl);
-parcelHelpers.export(exports, "getEl", ()=>getEl);
-parcelHelpers.export(exports, "isNode", ()=>isNode);
-var _htmlJs = require("./html.js");
-var _mountJs = require("./mount.js");
-var _setattrJs = require("./setattr.js");
-var _textJs = require("./text.js");
-function parseArguments(element, args) {
-    parseArgumentsInternal(element, args);
-}
-function parseArgumentsInternal(element, args, initial) {
-    for (const arg of args){
-        if (arg !== 0 && !arg) continue;
-        const type = typeof arg;
-        if (type === "function") arg(element);
-        else if (type === "string" || type === "number") element.appendChild((0, _textJs.text)(arg));
-        else if (isNode(getEl(arg))) (0, _mountJs.mount)(element, arg);
-        else if (arg.length) parseArgumentsInternal(element, arg, initial);
-        else if (type === "object") (0, _setattrJs.setAttrInternal)(element, arg, null, initial);
-    }
-}
-function ensureEl(parent) {
-    return typeof parent === "string" ? (0, _htmlJs.html)(parent) : getEl(parent);
-}
-function getEl(parent) {
-    return parent.nodeType && parent || !parent.el && parent || getEl(parent.el);
-}
-function isNode(arg) {
-    return arg && arg.nodeType;
-}
+parcelHelpers.export(exports, "validateLatinCharacters", ()=>validateLatinCharacters);
+parcelHelpers.export(exports, "validateNumbers", ()=>validateNumbers);
+const validateLatinCharacters = (input)=>{
+    if (/[^a-zA-Z\s]/.test(input.value)) alert("Please use Latin characters only");
+    return input.value.replace(/[^a-zA-Z\s]|(.*\s.*)\s.*/g, "$1");
+};
+const validateNumbers = (input)=>{
+    if (/[^\d\s]/.test(input.value.replace(/ /g, ""))) alert("Please enter numbers only");
+    return input.value.replace(/\D/g, "");
+};
 
-},{"./html.js":"hjTCY","./mount.js":"5qTJ0","./setattr.js":"ljeoO","./text.js":"9AiUK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5qTJ0":[function(require,module,exports) {
-/* global Node, ShadowRoot */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "mount", ()=>mount);
-parcelHelpers.export(exports, "trigger", ()=>trigger);
-var _utilJs = require("./util.js");
-var _unmountJs = require("./unmount.js");
-const hookNames = [
-    "onmount",
-    "onremount",
-    "onunmount"
-];
-const shadowRootAvailable = typeof window !== "undefined" && "ShadowRoot" in window;
-function mount(parent, child, before, replace) {
-    const parentEl = (0, _utilJs.getEl)(parent);
-    const childEl = (0, _utilJs.getEl)(child);
-    if (child === childEl && childEl.__redom_view) // try to look up the view if not provided
-    child = childEl.__redom_view;
-    if (child !== childEl) childEl.__redom_view = child;
-    const wasMounted = childEl.__redom_mounted;
-    const oldParent = childEl.parentNode;
-    if (wasMounted && oldParent !== parentEl) (0, _unmountJs.doUnmount)(child, childEl, oldParent);
-    if (before != null) {
-        if (replace) {
-            const beforeEl = (0, _utilJs.getEl)(before);
-            if (beforeEl.__redom_mounted) trigger(beforeEl, "onunmount");
-            parentEl.replaceChild(childEl, beforeEl);
-        } else parentEl.insertBefore(childEl, (0, _utilJs.getEl)(before));
-    } else parentEl.appendChild(childEl);
-    doMount(child, childEl, parentEl, oldParent);
-    return child;
-}
-function trigger(el, eventName) {
-    if (eventName === "onmount" || eventName === "onremount") el.__redom_mounted = true;
-    else if (eventName === "onunmount") el.__redom_mounted = false;
-    const hooks = el.__redom_lifecycle;
-    if (!hooks) return;
-    const view = el.__redom_view;
-    let hookCount = 0;
-    view && view[eventName] && view[eventName]();
-    for(const hook in hooks)if (hook) hookCount++;
-    if (hookCount) {
-        let traverse = el.firstChild;
-        while(traverse){
-            const next = traverse.nextSibling;
-            trigger(traverse, eventName);
-            traverse = next;
-        }
-    }
-}
-function doMount(child, childEl, parentEl, oldParent) {
-    const hooks = childEl.__redom_lifecycle || (childEl.__redom_lifecycle = {});
-    const remount = parentEl === oldParent;
-    let hooksFound = false;
-    for (const hookName of hookNames){
-        if (!remount) {
-            if (child !== childEl) {
-                if (hookName in child) hooks[hookName] = (hooks[hookName] || 0) + 1;
-            }
-        }
-        if (hooks[hookName]) hooksFound = true;
-    }
-    if (!hooksFound) {
-        childEl.__redom_lifecycle = {};
-        return;
-    }
-    let traverse = parentEl;
-    let triggered = false;
-    if (remount || traverse && traverse.__redom_mounted) {
-        trigger(childEl, remount ? "onremount" : "onmount");
-        triggered = true;
-    }
-    while(traverse){
-        const parent = traverse.parentNode;
-        const parentHooks = traverse.__redom_lifecycle || (traverse.__redom_lifecycle = {});
-        for(const hook in hooks)parentHooks[hook] = (parentHooks[hook] || 0) + hooks[hook];
-        if (triggered) break;
-        else {
-            if (traverse.nodeType === Node.DOCUMENT_NODE || shadowRootAvailable && traverse instanceof ShadowRoot || parent && parent.__redom_mounted) {
-                trigger(traverse, remount ? "onremount" : "onmount");
-                triggered = true;
-            }
-            traverse = parent;
-        }
-    }
-}
-
-},{"./util.js":"84GoL","./unmount.js":"irGDu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"irGDu":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "unmount", ()=>unmount);
-parcelHelpers.export(exports, "doUnmount", ()=>doUnmount);
-var _utilJs = require("./util.js");
-var _mountJs = require("./mount.js");
-function unmount(parent, child) {
-    const parentEl = (0, _utilJs.getEl)(parent);
-    const childEl = (0, _utilJs.getEl)(child);
-    if (child === childEl && childEl.__redom_view) // try to look up the view if not provided
-    child = childEl.__redom_view;
-    if (childEl.parentNode) {
-        doUnmount(child, childEl, parentEl);
-        parentEl.removeChild(childEl);
-    }
-    return child;
-}
-function doUnmount(child, childEl, parentEl) {
-    const hooks = childEl.__redom_lifecycle;
-    if (hooksAreEmpty(hooks)) {
-        childEl.__redom_lifecycle = {};
-        return;
-    }
-    let traverse = parentEl;
-    if (childEl.__redom_mounted) (0, _mountJs.trigger)(childEl, "onunmount");
-    while(traverse){
-        const parentHooks = traverse.__redom_lifecycle || {};
-        for(const hook in hooks)if (parentHooks[hook]) parentHooks[hook] -= hooks[hook];
-        if (hooksAreEmpty(parentHooks)) traverse.__redom_lifecycle = null;
-        traverse = traverse.parentNode;
-    }
-}
-function hooksAreEmpty(hooks) {
-    if (hooks == null) return true;
-    for(const key in hooks){
-        if (hooks[key]) return false;
-    }
-    return true;
-}
-
-},{"./util.js":"84GoL","./mount.js":"5qTJ0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ljeoO":[function(require,module,exports) {
-/* global SVGElement */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "setAttr", ()=>setAttr);
-parcelHelpers.export(exports, "setAttrInternal", ()=>setAttrInternal);
-parcelHelpers.export(exports, "setXlink", ()=>setXlink);
-parcelHelpers.export(exports, "setData", ()=>setData);
-var _setstyleJs = require("./setstyle.js");
-var _utilJs = require("./util.js");
-const xlinkns = "http://www.w3.org/1999/xlink";
-function setAttr(view, arg1, arg2) {
-    setAttrInternal(view, arg1, arg2);
-}
-function setAttrInternal(view, arg1, arg2, initial) {
-    const el = (0, _utilJs.getEl)(view);
-    const isObj = typeof arg1 === "object";
-    if (isObj) for(const key in arg1)setAttrInternal(el, key, arg1[key], initial);
-    else {
-        const isSVG = el instanceof SVGElement;
-        const isFunc = typeof arg2 === "function";
-        if (arg1 === "style" && typeof arg2 === "object") (0, _setstyleJs.setStyle)(el, arg2);
-        else if (isSVG && isFunc) el[arg1] = arg2;
-        else if (arg1 === "dataset") setData(el, arg2);
-        else if (!isSVG && (arg1 in el || isFunc) && arg1 !== "list") el[arg1] = arg2;
-        else {
-            if (isSVG && arg1 === "xlink") {
-                setXlink(el, arg2);
-                return;
-            }
-            if (initial && arg1 === "class") arg2 = el.className + " " + arg2;
-            if (arg2 == null) el.removeAttribute(arg1);
-            else el.setAttribute(arg1, arg2);
-        }
-    }
-}
-function setXlink(el, arg1, arg2) {
-    if (typeof arg1 === "object") for(const key in arg1)setXlink(el, key, arg1[key]);
-    else if (arg2 != null) el.setAttributeNS(xlinkns, arg1, arg2);
-    else el.removeAttributeNS(xlinkns, arg1, arg2);
-}
-function setData(el, arg1, arg2) {
-    if (typeof arg1 === "object") for(const key in arg1)setData(el, key, arg1[key]);
-    else if (arg2 != null) el.dataset[arg1] = arg2;
-    else delete el.dataset[arg1];
-}
-
-},{"./setstyle.js":"5PSeC","./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5PSeC":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "setStyle", ()=>setStyle);
-var _utilJs = require("./util.js");
-function setStyle(view, arg1, arg2) {
-    const el = (0, _utilJs.getEl)(view);
-    if (typeof arg1 === "object") for(const key in arg1)setStyleValue(el, key, arg1[key]);
-    else setStyleValue(el, arg1, arg2);
-}
-function setStyleValue(el, key, value) {
-    el.style[key] = value == null ? "" : value;
-}
-
-},{"./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9AiUK":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "text", ()=>text);
-function text(str) {
-    return document.createTextNode(str != null ? str : "");
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hM3Vg":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "setChildren", ()=>setChildren);
-var _mountJs = require("./mount.js");
-var _unmountJs = require("./unmount.js");
-var _utilJs = require("./util.js");
-function setChildren(parent, ...children) {
-    const parentEl = (0, _utilJs.getEl)(parent);
-    let current = traverse(parent, children, parentEl.firstChild);
-    while(current){
-        const next = current.nextSibling;
-        (0, _unmountJs.unmount)(parent, current);
-        current = next;
-    }
-}
-function traverse(parent, children, _current) {
-    let current = _current;
-    const childEls = Array(children.length);
-    for(let i = 0; i < children.length; i++)childEls[i] = children[i] && (0, _utilJs.getEl)(children[i]);
-    for(let i = 0; i < children.length; i++){
-        const child = children[i];
-        if (!child) continue;
-        const childEl = childEls[i];
-        if (childEl === current) {
-            current = current.nextSibling;
-            continue;
-        }
-        if ((0, _utilJs.isNode)(childEl)) {
-            const next = current && current.nextSibling;
-            const exists = child.__redom_index != null;
-            const replace = exists && next === childEls[i + 1];
-            (0, _mountJs.mount)(parent, child, current, replace);
-            if (replace) current = next;
-            continue;
-        }
-        if (child.length != null) current = traverse(parent, child, current);
-    }
-    return current;
-}
-
-},{"./mount.js":"5qTJ0","./unmount.js":"irGDu","./util.js":"84GoL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aM9jX":[function() {},{}]},["km5uZ","bB7Pu"], "bB7Pu", "parcelRequire7921")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["km5uZ","bB7Pu"], "bB7Pu", "parcelRequire7921")
 
 //# sourceMappingURL=index.3d214d75.js.map
