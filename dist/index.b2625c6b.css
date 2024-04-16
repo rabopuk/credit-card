@@ -193,16 +193,52 @@
   padding: 19px 94px;
 }
 
+.input__holder::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+.input__holder:hover::placeholder, .input__holder:focus::placeholder {
+  color: #ccc;
+}
+
 .input__number {
   padding: 19px 58px;
+}
+
+.input__number::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+.input__number:hover::placeholder, .input__number:focus::placeholder {
+  color: #ccc;
 }
 
 .input__date {
   padding: 19px 23px;
 }
 
+.input__date::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+.input__date:hover::placeholder, .input__date:focus::placeholder {
+  color: #ccc;
+}
+
 .input__cvv {
   padding: 19px 33px;
+}
+
+.input__cvv::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+.input__cvv:hover::placeholder, .input__cvv:focus::placeholder {
+  color: #ccc;
 }
 
 .js-validate-error-label {
