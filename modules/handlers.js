@@ -9,7 +9,7 @@ export const onHolderInput = cardName => ({ target }) => {
       .toLowerCase()
       .replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
 
-  cardName.textContent = formattedValue;
+  cardName.textContent = formattedValue || 'Name Surname';
 };
 
 export const onNumberInput = cardNumber => ({ target }) => {
@@ -23,7 +23,7 @@ export const onNumberInput = cardNumber => ({ target }) => {
   const formattedValue = input.value.replace(/(\d{4})/g, '$1 ').trim();
 
   input.value = formattedValue;
-  cardNumber.textContent = formattedValue;
+  cardNumber.textContent = formattedValue || 'xxxx xxxx xxxx xxxx';
 };
 
 export const onCvvInput = ({ target }) => {
@@ -33,4 +33,6 @@ export const onCvvInput = ({ target }) => {
   if (input.value.length > 3) {
     input.value = input.value.slice(0, 3);
   }
+
+  input.value = input.value || 'xxx';
 };
