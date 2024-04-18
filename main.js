@@ -1,9 +1,25 @@
 /* eslint-disable max-len */
 import { createElements } from './modules/createElements.js';
+import { handleCardNumberInput, handleNameInput, handleSecurityCodeInput, initDatepicker } from './modules/handlers.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const elements = createElements();
+  createElements();
+
+  const creditcard = document.querySelector('.creditcard');
+  const nameInput = document.getElementById('name');
+  const cardNumberInput = document.getElementById('cardnumber');
+  const expirationDateInput = document.getElementById('expirationdate');
+  const svgexpire = document.getElementById('svgexpire');
+  const securityCodeInput = document.getElementById('securitycode');
+
+  nameInput.addEventListener('input', handleNameInput);
+  cardNumberInput.addEventListener('input', handleCardNumberInput);
+  initDatepicker(expirationDateInput, svgexpire);
+  securityCodeInput.addEventListener('input', handleSecurityCodeInput);
+  securityCodeInput.addEventListener('click', () => {
+    creditcard.classList.toggle('flipped');
+  });
 });
 
 
