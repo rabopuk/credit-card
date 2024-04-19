@@ -55,9 +55,9 @@ export const createElements = () => {
           d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
       </g>
       <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
-        class="st2 st3 st4">0123 4567 8910 1112</text>
+        class="st2 st3 st4">XXXX XXXX XXXX XXXX</text>
       <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
-        class="st2 st5 st6">JOHN JOHNSON</text>
+        class="st2 st5 st6">NAME SURNAME</text>
       <text transform="matrix(1 0 0 1 54.1074 389.8793)"
         class="st7 st5 st8">cardholder name</text>
       <text transform="matrix(1 0 0 1 479.7754 388.8793)"
@@ -66,7 +66,7 @@ export const createElements = () => {
         class="st7 st5 st8">card number</text>
       <g>
         <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire"
-          class="st2 st5 st9">01/23</text>
+          class="st2 st5 st9">MM/YY</text>
         <text transform="matrix(1 0 0 1 479.3848 417.0097)"
           class="st2 st10 st11">VALID</text>
         <text transform="matrix(1 0 0 1 479.3848 435.6762)"
@@ -155,7 +155,7 @@ export const createElements = () => {
           d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
       </g>
       <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity"
-        class="st6 st7">985</text>
+        class="st6 st7">XXX</text>
       <g class="st8">
         <text transform="matrix(1 0 0 1 518.083 280.0879)"
           class="st9 st6 st10">security code</text>
@@ -163,7 +163,7 @@ export const createElements = () => {
       <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
       <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
       <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback"
-        class="st12 st13">JOHN JOHNSON</text>
+        class="st12 st13">John Johnson</text>
     </g>
 
   `;
@@ -174,22 +174,22 @@ export const createElements = () => {
   const formContainer = el('div.form-container', [
     el('div.field-container', [
       el('label', { for: 'name' }, 'Name'),
-      el('input#name', { type: 'text', maxlength: '20' }),
+      el('input#name', { type: 'text', maxlength: '20', placeholder: 'Name Surname' }),
     ]),
     el('div.field-container', [
       el('label', { for: 'cardnumber' }, 'Card Number'),
-      el('input#cardnumber', { type: 'text', pattern: '[0-9]*', inputmode: 'numeric' }),
+      el('input#cardnumber', { type: 'text', pattern: '[0-9]*', inputmode: 'numeric', placeholder: 'XXXX XXXX XXXX XXXX' }),
       el('svg#ccicon', { class: 'ccicon', width: '750', height: '471', viewBox: '0 0 750 471', version: '1.1', xmlns: 'http://www.w3.org/2000/svg', xmlnsXlink: 'http://www.w3.org/1999/xlink' }, [
         // icon
       ]),
     ]),
     el('div.field-container', [
       el('label', { for: 'expirationdate' }, 'Expiration (mm/yy)'),
-      el('input#expirationdate', { type: 'text', pattern: '[0-9]*', readonly: true }),
+      el('input#expirationdate', { type: 'text', pattern: '[0-9]*', readonly: true, placeholder: 'MM/YY' }),
     ]),
     el('div.field-container', [
       el('label', { for: 'securitycode' }, 'Security Code'),
-      el('input#securitycode', { type: 'text', pattern: '[0-9]*', inputmode: 'numeric' }),
+      el('input#securitycode', { type: 'text', pattern: '[0-9]*', inputmode: 'numeric', placeholder: 'XXX' }),
     ]),
   ]);
 

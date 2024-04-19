@@ -601,6 +601,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     securityCodeInput.addEventListener("click", ()=>{
         creditcard.classList.toggle("flipped");
     });
+    creditcard.addEventListener("click", ()=>{
+        creditcard.classList.toggle("flipped");
+    });
 }); // const name = document.getElementById("name");
  // const cardnumber = document.getElementById("cardnumber");
  // const expirationdate = document.getElementById("expirationdate");
@@ -673,9 +676,9 @@ const createElements = ()=>{
           d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
       </g>
       <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
-        class="st2 st3 st4">0123 4567 8910 1112</text>
+        class="st2 st3 st4">XXXX XXXX XXXX XXXX</text>
       <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
-        class="st2 st5 st6">JOHN JOHNSON</text>
+        class="st2 st5 st6">NAME SURNAME</text>
       <text transform="matrix(1 0 0 1 54.1074 389.8793)"
         class="st7 st5 st8">cardholder name</text>
       <text transform="matrix(1 0 0 1 479.7754 388.8793)"
@@ -684,7 +687,7 @@ const createElements = ()=>{
         class="st7 st5 st8">card number</text>
       <g>
         <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire"
-          class="st2 st5 st9">01/23</text>
+          class="st2 st5 st9">MM/YY</text>
         <text transform="matrix(1 0 0 1 479.3848 417.0097)"
           class="st2 st10 st11">VALID</text>
         <text transform="matrix(1 0 0 1 479.3848 435.6762)"
@@ -770,7 +773,7 @@ const createElements = ()=>{
           d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
       </g>
       <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity"
-        class="st6 st7">985</text>
+        class="st6 st7">XXX</text>
       <g class="st8">
         <text transform="matrix(1 0 0 1 518.083 280.0879)"
           class="st9 st6 st10">security code</text>
@@ -778,7 +781,7 @@ const createElements = ()=>{
       <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
       <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
       <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback"
-        class="st12 st13">JOHN JOHNSON</text>
+        class="st12 st13">John Johnson</text>
     </g>
 
   `;
@@ -790,7 +793,8 @@ const createElements = ()=>{
             }, "Name"),
             (0, _redom.el)("input#name", {
                 type: "text",
-                maxlength: "20"
+                maxlength: "20",
+                placeholder: "Name Surname"
             })
         ]),
         (0, _redom.el)("div.field-container", [
@@ -800,7 +804,8 @@ const createElements = ()=>{
             (0, _redom.el)("input#cardnumber", {
                 type: "text",
                 pattern: "[0-9]*",
-                inputmode: "numeric"
+                inputmode: "numeric",
+                placeholder: "XXXX XXXX XXXX XXXX"
             }),
             (0, _redom.el)("svg#ccicon", {
                 class: "ccicon",
@@ -819,7 +824,8 @@ const createElements = ()=>{
             (0, _redom.el)("input#expirationdate", {
                 type: "text",
                 pattern: "[0-9]*",
-                readonly: true
+                readonly: true,
+                placeholder: "MM/YY"
             })
         ]),
         (0, _redom.el)("div.field-container", [
@@ -829,7 +835,8 @@ const createElements = ()=>{
             (0, _redom.el)("input#securitycode", {
                 type: "text",
                 pattern: "[0-9]*",
-                inputmode: "numeric"
+                inputmode: "numeric",
+                placeholder: "XXX"
             })
         ])
     ]);
@@ -1298,11 +1305,13 @@ var _airDatepickerDefault = parcelHelpers.interopDefault(_airDatepicker);
 var _airDatepickerCss = require("air-datepicker/air-datepicker.css");
 const handleNameInput = (event)=>{
     const svgname = document.getElementById("svgname");
+    const svgnameback = document.getElementById("svgnameback");
     const inputHolder = event.target;
     if (/[^a-zA-Z\s]/.test(inputHolder.value)) alert("Please use Latin characters only");
     inputHolder.value = inputHolder.value.replace(/[^a-zA-Z\s]|(.*\s.*)\s.*/g, "$1");
     const formattedValue = inputHolder.value.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, (letter)=>letter.toUpperCase());
     svgname.textContent = formattedValue || "Name Surname";
+    svgnameback.textContent = formattedValue || "Name Surname";
 };
 const handleCardNumberInput = (event)=>{
     const svgnumber = document.getElementById("svgnumber");
@@ -1312,7 +1321,7 @@ const handleCardNumberInput = (event)=>{
     if (inputNumber.value.length > 16) inputNumber.value = inputNumber.value.slice(0, 16);
     const formattedValue = inputNumber.value.replace(/(\d{4})/g, "$1 ").trim();
     inputNumber.value = formattedValue;
-    svgnumber.textContent = formattedValue || "xxxx xxxx xxxx xxxx";
+    svgnumber.textContent = formattedValue || "XXXX XXXX XXXX XXXX";
 };
 const initDatepicker = (inputDate, cardDate)=>{
     new (0, _airDatepickerDefault.default)(inputDate, {

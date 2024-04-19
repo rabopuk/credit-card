@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
   securityCodeInput.addEventListener('click', () => {
     creditcard.classList.toggle('flipped');
   });
+  creditcard.addEventListener('click', () => {
+    creditcard.classList.toggle('flipped');
+  });
 });
 
 

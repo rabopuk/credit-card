@@ -334,3 +334,43 @@ input {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
+
+#name::placeholder {
+  color: transparent;
+  font-size: 16px;
+}
+
+#name:hover::placeholder,
+#name:focus::placeholder {
+  color: #ccc;
+}
+
+#cardnumber::placeholder {
+  color: transparent;
+  font-size: 16px;
+}
+
+#cardnumber:hover::placeholder,
+#cardnumber:focus::placeholder {
+  color: #ccc;
+}
+
+#expirationdate::placeholder {
+  color: transparent;
+  font-size: 16px;
+}
+
+#expirationdate:hover::placeholder,
+#expirationdate:focus::placeholder {
+  color: #ccc;
+}
+
+#securitycode::placeholder {
+  color: transparent;
+  font-size: 16px;
+}
+
+#securitycode:hover::placeholder,
+#securitycode:focus::placeholder {
+  color: #ccc;
+}

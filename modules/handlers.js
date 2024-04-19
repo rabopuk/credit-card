@@ -3,6 +3,7 @@ import 'air-datepicker/air-datepicker.css';
 
 export const handleNameInput = (event) => {
   const svgname = document.getElementById('svgname');
+  const svgnameback = document.getElementById('svgnameback');
   const inputHolder = event.target;
 
   if (/[^a-zA-Z\s]/.test(inputHolder.value)) {
@@ -17,6 +18,7 @@ export const handleNameInput = (event) => {
     .replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
 
   svgname.textContent = formattedValue || 'Name Surname';
+  svgnameback.textContent = formattedValue || 'Name Surname';
 };
 
 
@@ -38,7 +40,7 @@ export const handleCardNumberInput = (event) => {
   const formattedValue = inputNumber.value.replace(/(\d{4})/g, '$1 ').trim();
 
   inputNumber.value = formattedValue;
-  svgnumber.textContent = formattedValue || 'xxxx xxxx xxxx xxxx';
+  svgnumber.textContent = formattedValue || 'XXXX XXXX XXXX XXXX';
 };
 
 

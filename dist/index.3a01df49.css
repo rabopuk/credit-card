@@ -305,4 +305,40 @@ input {
 .creditcard .back, .creditcard.flipped {
   transform: rotateY(180deg);
 }
+
+#name::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+#name:hover::placeholder, #name:focus::placeholder {
+  color: #ccc;
+}
+
+#cardnumber::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+#cardnumber:hover::placeholder, #cardnumber:focus::placeholder {
+  color: #ccc;
+}
+
+#expirationdate::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+#expirationdate:hover::placeholder, #expirationdate:focus::placeholder {
+  color: #ccc;
+}
+
+#securitycode::placeholder {
+  color: #0000;
+  font-size: 16px;
+}
+
+#securitycode:hover::placeholder, #securitycode:focus::placeholder {
+  color: #ccc;
+}
 /*# sourceMappingURL=index.3a01df49.css.map */
