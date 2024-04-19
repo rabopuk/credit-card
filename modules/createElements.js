@@ -139,7 +139,7 @@ export const createElements = () => {
       <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
       <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
       <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback"
-        class="st12 st13">John Johnson</text>
+        class="st12 st13">Name Surname</text>
     </g>
 
   `;
@@ -150,7 +150,7 @@ export const createElements = () => {
   const formContainer = el('div.form-container', [
     el('div.field-container', [
       el('label', { for: 'name' }, 'Name'),
-      el('input#name', { type: 'text', maxlength: '20', placeholder: 'Name Surname' }),
+      el('input#name', { type: 'text', maxlength: '20', placeholder: 'NAME SURNAME' }),
     ]),
     el('div.field-container', [
       el('label', { for: 'cardnumber' }, 'Card Number'),
