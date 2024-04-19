@@ -15,6 +15,8 @@ export const initListeners = () => {
 
   cardNumberInput.addEventListener('input', e => {
     handleCardNumberInput(e);
+
+    const ccsingle = document.getElementById('ccsingle');
     const cardNumber = e.target.value;
     const validationResult = validateCardNumber(cardNumber);
     console.log('validationResult: ', validationResult);
@@ -22,6 +24,8 @@ export const initListeners = () => {
     // if (validationResult) {
     if (validationResult.isValid) {
       displayCardBrandLogo(cardNumber);
+    } else {
+      ccsingle.innerHTML = 'logo';
     }
   });
 

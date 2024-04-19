@@ -2949,11 +2949,13 @@ const initListeners = ()=>{
     nameInput.addEventListener("input", (0, _handlersJs.handleNameInput));
     cardNumberInput.addEventListener("input", (e)=>{
         (0, _handlersJs.handleCardNumberInput)(e);
+        const ccsingle = document.getElementById("ccsingle");
         const cardNumber = e.target.value;
         const validationResult = (0, _cardValidationJs.validateCardNumber)(cardNumber);
         console.log("validationResult: ", validationResult);
         // if (validationResult) {
         if (validationResult.isValid) (0, _cardValidationJs.displayCardBrandLogo)(cardNumber);
+        else ccsingle.innerHTML = "logo";
     });
     securityCodeInput.addEventListener("input", (0, _handlersJs.handleSecurityCodeInput));
     securityCodeInput.addEventListener("click", ()=>{
