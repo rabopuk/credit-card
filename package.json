@@ -9,8 +9,8 @@
   "author": "rabopuk",
   "license": "ISC",
   "dependencies": {
-    "card-validator": "^9.1.0",
     "air-datepicker": "^3.5.0",
+    "card-validator": "^9.1.0",
     "redom": "^4.0.0"
   },
   "devDependencies": {

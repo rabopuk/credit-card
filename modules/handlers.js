@@ -1,10 +1,7 @@
-import AirDatepicker from 'air-datepicker';
-import 'air-datepicker/air-datepicker.css';
-
-export const handleNameInput = (event) => {
+export const handleNameInput = ({ target }) => {
   const svgname = document.getElementById('svgname');
   const svgnameback = document.getElementById('svgnameback');
-  const inputHolder = event.target;
+  const inputHolder = target;
 
   if (/[^a-zA-Z\s]/.test(inputHolder.value)) {
     alert('Please use Latin characters only');
@@ -22,10 +19,10 @@ export const handleNameInput = (event) => {
 };
 
 
-export const handleCardNumberInput = (event) => {
+export const handleCardNumberInput = ({ target }) => {
   const svgnumber = document.getElementById('svgnumber');
 
-  const inputNumber = event.target;
+  const inputNumber = target;
 
   if (/[^\d\s]/.test(inputNumber.value.replace(/ /g, ''))) {
     alert('Please enter numbers only');
@@ -44,27 +41,10 @@ export const handleCardNumberInput = (event) => {
 };
 
 
-export const initDatepicker = (inputDate, cardDate) => {
-  new AirDatepicker(inputDate, {
-    view: 'months',
-    minView: 'months',
-    minDate: new Date(),
-    startDate: new Date(),
-    dateFormat: 'MM/yy',
-    multipleDatesSeparator: '/',
-    onSelect: ({ formattedDate, datepicker }) => {
-      inputDate.value = formattedDate;
-      cardDate.textContent = formattedDate;
-      datepicker.hide();
-    },
-  });
-};
-
-
-export const handleSecurityCodeInput = (event) => {
+export const handleSecurityCodeInput = ({ target }) => {
   const svgsecurity = document.getElementById('svgsecurity');
 
-  const inputCvv = event.target;
+  const inputCvv = target;
 
   if (/\D/.test(inputCvv.value)) {
     alert('Please enter numbers only');

@@ -75,11 +75,14 @@ input {
 }
 
 .ccicon {
-  height: 38px;
+  width: 60px;
+  max-height: 36;
   position: absolute;
   right: 6px;
-  top: calc(50% - 17px);
-  width: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  object-fit: cover;
 }
 
 .container {
