@@ -17,8 +17,10 @@ export const initListeners = () => {
     handleCardNumberInput(e);
     const cardNumber = e.target.value;
     const validationResult = validateCardNumber(cardNumber);
+    console.log('validationResult: ', validationResult);
 
-    if (validationResult) {
+    // if (validationResult) {
+    if (validationResult.isValid) {
       displayCardBrandLogo(cardNumber);
     }
   });

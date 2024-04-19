@@ -2951,7 +2951,9 @@ const initListeners = ()=>{
         (0, _handlersJs.handleCardNumberInput)(e);
         const cardNumber = e.target.value;
         const validationResult = (0, _cardValidationJs.validateCardNumber)(cardNumber);
-        if (validationResult) (0, _cardValidationJs.displayCardBrandLogo)(cardNumber);
+        console.log("validationResult: ", validationResult);
+        // if (validationResult) {
+        if (validationResult.isValid) (0, _cardValidationJs.displayCardBrandLogo)(cardNumber);
     });
     securityCodeInput.addEventListener("input", (0, _handlersJs.handleSecurityCodeInput));
     securityCodeInput.addEventListener("click", ()=>{
