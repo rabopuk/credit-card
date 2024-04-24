@@ -13,20 +13,30 @@ export const initListeners = () => {
 
   nameInput.addEventListener('input', handleNameInput);
 
+  let currentCardType = null;
+
   cardNumberInput.addEventListener('input', e => {
     handleCardNumberInput(e);
 
-    const ccsingle = document.getElementById('ccsingle');
+    // const ccsingle = document.getElementById('ccsingle');
+
     const cardNumber = e.target.value;
     const validationResult = validateCardNumber(cardNumber);
-    console.log('validationResult: ', validationResult);
+    const type = validationResult?.card?.type;
 
-    // if (validationResult) {
-    if (validationResult.isValid) {
+    if (type && type !== currentCardType) {
+      currentCardType = type;
       displayCardBrandLogo(cardNumber);
-    } else {
-      ccsingle.innerHTML = 'logo';
+    } else if (!type) {
+      currentCardType = null;
+      displayCardBrandLogo(cardNumber);
     }
+
+    // if (validationResult.card && validationResult.card.type) {
+    //   displayCardBrandLogo(cardNumber);
+    // } else {
+    //   ccsingle.innerHTML = 'logo';
+    // }
   });
 
   securityCodeInput.addEventListener('input', handleSecurityCodeInput);
