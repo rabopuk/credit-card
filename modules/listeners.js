@@ -2,14 +2,13 @@ import { displayCardBrandLogo, validateCardNumber } from './cardValidation.js';
 import {
   handleCardNumberInput,
   handleNameInput,
-  handleSecurityCodeInput
+  handleSecurityCodeInput,
 } from './handlers.js';
 
 export const initListeners = () => {
   const nameInput = document.getElementById('name');
   const cardNumberInput = document.getElementById('cardnumber');
   const securityCodeInput = document.getElementById('securitycode');
-  const creditcard = document.querySelector('.creditcard');
 
   nameInput.addEventListener('input', handleNameInput);
 
@@ -17,8 +16,6 @@ export const initListeners = () => {
 
   cardNumberInput.addEventListener('input', e => {
     handleCardNumberInput(e);
-
-    // const ccsingle = document.getElementById('ccsingle');
 
     const cardNumber = e.target.value;
     const validationResult = validateCardNumber(cardNumber);
@@ -31,21 +28,17 @@ export const initListeners = () => {
       currentCardType = null;
       displayCardBrandLogo(cardNumber);
     }
-
-    // if (validationResult.card && validationResult.card.type) {
-    //   displayCardBrandLogo(cardNumber);
-    // } else {
-    //   ccsingle.innerHTML = 'logo';
-    // }
   });
 
   securityCodeInput.addEventListener('input', handleSecurityCodeInput);
 
-  securityCodeInput.addEventListener('click', () => {
-    creditcard.classList.toggle('flipped');
-  });
+  document.addEventListener('click', ({ target }) => {
+    const container = target.closest('.container');
+    const securitycode = target.closest('#securitycode');
+    const creditcard = document.querySelector('.creditcard');
 
-  creditcard.addEventListener('click', () => {
-    creditcard.classList.toggle('flipped');
+    if (securitycode || container) {
+      creditcard.classList.toggle('flipped');
+    }
   });
 };

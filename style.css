@@ -74,13 +74,21 @@ input {
   border: 1px solid #dcdcdc;
 }
 
-.ccicon {
+#ccicon {
+  position: absolute;
+  width: 60px;
+  height: 36px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ccicon img {
   width: 60px;
   max-height: 36;
-  position: absolute;
-  right: 6px;
-  top: calc(50% + 18px);
-  transform: translateY(-50%);
   border-radius: 4px;
   object-fit: cover;
 }
@@ -97,11 +105,14 @@ input {
   position: absolute;
   right: 15px;
   top: 20px;
+  transform: translateY(-50% - 20px);
 }
 
-#ccsingle svg {
-  width: 100px;
-  max-height: 60px;
+#ccsingle img {
+  width: 60px;
+  max-height: 36;
+  border-radius: 4px;
+  object-fit: cover;
 }
 
 .creditcard svg#cardfront,

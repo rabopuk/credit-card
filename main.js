@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const { container } = createSvgElements();
 
   document.body.append(paymentTitle, container, formContainer);
+  // mount(document.body, [paymentTitle, container, formContainer]);
 
   const expirationDateInput = document.getElementById('expirationdate');
   const svgexpire = document.getElementById('svgexpire');
